@@ -1,0 +1,193 @@
+/* .test2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+a {
+    color: black;
+    font-weight: bold;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+.posts {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.posts .card {
+    margin-top: 15px;
+    width: 100%;
+}
+
+.img-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.img-fluid img {
+    margin-top: 10px;
+    max-width: 100%;
+}
+
+.sign-form {
+    margin-top: 100px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-form a {
+    font-weight: normal;
+}
+
+.h2 {
+    margin-bottom: 30px;
+}
+
+
+
+.filter {
+    width: 80%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.category-link {
+    padding: 15px 25px;
+    border: 1px solid #7537e9;
+    border-radius: 10px;
+}
+
+.create-post-form {
+    margin-top: 100px;
+    width: 70%;
+}
+
+.post-categories {
+    margin-bottom: 20px;
+}
+
+.error-msg {
+    margin: 0 auto;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.post {
+    margin: 100px auto;
+    /* Убираем верхний и нижний margin, и устанавливаем горизонтальный margin на auto */
+    width: 70%;
+    border: 1px solid #020005;
+    border-radius: 10px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Выравниваем по центру по горизонтали */
+}
+
+.post a,
+p {
+    margin: 0 20px;
+}
+
+.divider {
+    width: 100%;
+    margin: 15px 0;
+    border-top: 1px solid #010004;
+}
+
+.new-comment {
+    margin: 10px;
+    display: flex;
+}
+
+.categories {
+    margin-top: 10px;
+}
+
+.categories a {
+    color: #020007;
+}
+
+.reactions {
+    display: flex;
+    margin-top: 20px;
+}
+
+.react {
+    display: flex;
+    align-items: center;
+    margin: 0 20px 0 0;
+}
+
+.react img {
+    width: 22px;
+    height: 22px;
+}
+
+.count {
+    padding: 0 10px 0 0;
+}
+
+.vote {
+    background: url(../../img/like.png) no-repeat;
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.voted {
+    background: url(../../img/liked.png) no-repeat;
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.vote-dislike {
+    rotate: 180deg;
+}
+
+.comment {
+    margin-top: 0px;
+}
+
+.vote-comment {
+    background: url(../../img/like.png) no-repeat;
+    background-size: 100%;
+    width: 15px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.voted-comment {
+    background: url(../../img/liked.png) no-repeat;
+    background-size: 100%;
+    width: 15px;
+    height: 15px;
+    border: none;
+    cursor: pointer;
+}

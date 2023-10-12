@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/css/style.css">
+    <link rel="stylesheet" href="../../ui/static/css/postPage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Forum</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Forum</a>
+            </div>
+            <button class="open-sidebar-button">&#9776;</button> <!-- Только иконка -->
+            {{if .User.Username}}
+            <p class="username">{{.User.Username}}</p>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/auth/sign-in">Sign In</a>
+                <a href="/auth/sign-up">Sign Up</a>
+            </div>
+            {{end}}
+        </nav>
+    </header>
+
+    <div class="sidebar">
+        <button class="close-sidebar-button">&#10006;</button>
+        <div class="button-container">
+            <button class="dropdown-btn" id="dropdown-btn1">Dropdown
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+                <div class="test1">
+                    <p class="username">{{.User.Username}}</p>
+                </div>
+                <div class="test2"> 
+                    <button class="menu-button" onclick="window.location='/myposts'">My posts</button>
+                    <button class="menu-button" onclick="window.location='/mylikes'">My likes</button>
+                    <form action="/auth/log-out" method="get">
+                        <button class="menu-button">Log Out</button>
+                    </form>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <button class="create-post-button" onclick="window.location='/posts/create'">Create Post</button>
+            </div>
+            <!-- <div class="button-container">
+                <button class="dropdown-btn">Tags
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <button class="menu-button" onclick="window.location='/?tag=Action'">Action</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Fantasy'">Fantasy</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Adventure'">Adventure</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Horror'">Horror</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Thriller'">Thriller</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="post">
+        <p>Created by: {{.Post.Author}}</p>
+        <div class="divider"></div>
+        <h2 class="text-center text-break">{{.Post.Title}}</h2>
+        <p class="text-break">{{.Post.Body}}</p>
+        <form action="/posts/react/{{.Post.ID}}" method="Post">
+            <div class="reactions">
+                {{if eq .Post.Vote 1}}
+                <div class="react">
+                    <p class="count">{{ .Post.Likecount }}</p>
+                    <button class="voted" name="react" value="1" {{ if not .User.Username }} disabled {{ end
+                        }}></button>
+                </div>
+                <div class="react">
+                    <p class="count">{{ .Post.Dislikecount }}</p>
+                    <button class="vote vote-dislike" name="react" value="-1" {{ if not .User.Username }} disabled {{
+                        end }}></button>
+                </div>
+                {{else if eq .Post.Vote -1}}
+                <div class="react">
+                    <p class="count">{{ .Post.Likecount }}</p>
+                    <button class="vote" name="react" value="1" {{ if not .User.Username }} disabled {{ end }}></button>
+                </div>
+                <div class="react">
+                    <p class="count">{{ .Post.Dislikecount }}</p>
+                    <button class="voted vote-dislike" name="react" value="-1" {{ if not .User.Username }} disabled {{
+                        end }}></button>
+                </div>
+                {{else}}
+                <div class="react">
+                    <p class="count">{{ .Post.Likecount }}</p>
+                    <button class="vote" name="react" value="1" {{ if not .User.Username }} disabled {{ end }}></button>
+                </div>
+                <div class="react">
+                    <p class="count">{{ .Post.Dislikecount }}</p>
+                    <button class="vote vote-dislike" name="react" value="-1" {{ if not .User.Username }} disabled {{
+                        end }}></button>
+                </div>
+                {{end}}
+            </div>
+        </form>
+        {{if or .User.Username .Comments}}
+        <div class="divider"></div>
+        {{end}}
+        {{if .User.Username}}
+        <form action="/posts?id={{.Post.ID}}" method="Post">
+            <div class="new-comment">
+                <input name="comment" type="text" class="form-control"
+                    aria-label="Text input with segmented dropdown button" required>
+                <button type="submit" class="btn btn-outline-primary">Comment</button>
+            </div>
+        </form>
+        {{end}}
+        {{if .Comments}}
+        {{$username := .User.Username}}
+        {{range .Comments}}
+        <p style="font-weight:bold; margin: 10px 0 5px 0;">{{.Author}}</p>
+        <p class="text-break" style="margin-bottom: 5px;">{{.Body}}</p>
+        <div class="reactions comment" style="margin-bottom: 30px;">
+            <form action="/comment/react/{{.Id}}" method="Post">
+                <div class="react comment">
+                    <p class="count">{{ .Like }}</p>
+                    <button name="commentID" {{if eq .Vote 1}} class="voted-comment" {{else}} class="vote-comment"
+                        {{end}} value="{{.Id}}" type="submit" {{ if not $username }} disabled {{ end }}>
+                        <input type="hidden" name="react" value="1">
+                    </button>
+                </div>
+            </form>
+            <form action="/comment/react/{{.Id}}" method="Post">
+                <div class="react">
+                    <p class="count">{{ .Dislike }}</p>
+                    <button name="commentID" {{if eq .Vote -1}} class="voted-comment vote-dislike" {{else}}
+                        class="vote-comment vote-dislike" {{end}} value="{{.Id}}" type="submit" {{ if not $username }}
+                        disabled {{ end }}>
+                        <input type="hidden" name="react" value="-1">
+                    </button>
+                </div>
+            </form>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+    <script src="../../ui/static/js/script.js"></script>
+</body>
+
+</html>

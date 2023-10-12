@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/css/style.css">
+    <title>Error</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Forum</a>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <div class="error-container">
+            <h1>{{.Error.Status}}</h1>
+            <p>{{.Error.Message}}</p>
+        </div>
+    </div>
+</body>
+</html>

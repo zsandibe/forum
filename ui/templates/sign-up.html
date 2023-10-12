@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/css/auth.css">
+    <title>Sign Up</title>
+</head>
+<body>
+    <header>
+        <a href="/">Forum</a>
+    </header>
+    
+    <main>
+        <h1>Sign Up</h1>
+        <form action="sign-up" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Username" name="username" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Email" name="email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password" name="password" required>
+            
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" placeholder="Confirm password" name="confirm-password" required>
+            
+            <button type="submit">Sign Up</button>
+        </form>
+    </main>
+</body>
+</html>

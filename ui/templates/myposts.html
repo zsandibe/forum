@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/css/style.css">
+    <title>Forum</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Forum</a>
+            </div>
+            <button class="open-sidebar-button">&#9776;</button>
+            {{if .User.Username}}
+            <p class="username">{{.User.Username}}</p>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/auth/sign-in">Sign In</a>
+                <a href="/auth/sign-up">Sign Up</a>
+            </div>
+            {{end}}
+        </nav>
+    </header>
+
+    <div class="sidebar">
+        <button class="close-sidebar-button">&#10006;</button>
+        <div class="button-container">
+            <button class="dropdown-btn">Dropdown 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <p class="username">{{.User.Username}}</p>
+                <button class="menu-button" onclick="window.location='/myposts'">My posts</button>
+                <button class="menu-button" onclick="window.location='/mylikes'">My likes</button>
+                <form action="/auth/log-out" method="get">
+                    <button class="menu-button">Log Out</button>
+                </form>
+              </div>
+            <div class="sidebar-menu">
+                <button class="create-post-button" onclick="window.location='/posts/create'">Create Post</button>
+            </div>
+            <div class="button-container">
+              <button class="dropdown-btn">Tags 
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <button class="menu-button" onclick="window.location='/?tag=Action'" >Action</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Fantasy'" >Fantasy</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Adventure'" >Adventure</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Horror'" >Horror</button>
+                    <button class="menu-button" onclick="window.location='/?tag=Thriller'" >Thriller</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="posts">
+            {{range .Posts}}
+            <div class="post-container">
+              <div class="post-title" onclick="window.location='/posts?id={{.ID}}'">{{.Title}}</div>
+              <div class="post-author">Author: {{.Author}}</div>
+              <div class="dropdown">
+                <div class="dropdown-content">
+                  {{ range .Tags}}
+                    <label class="tag-label">{{.}}</label>
+                  {{end}}
+                </div>  
+              </div>
+              <div class="post-content">
+                {{.Body}}
+              </div>
+              <div class="post-reactions">Like {{.Likecount}} Dislike {{.Dislikecount}}</div>
+            </div>
+            {{end}}
+        </div>
+    </div>
+    <script src="../../ui/static/js/script.js"></script>
+</body>
+
+</html>

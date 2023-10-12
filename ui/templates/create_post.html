@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/css/style.css">
+    <link rel="stylesheet" href="../../ui/static/css/create_post.css">
+    <title>Create Post</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">Forum</a>
+        </div>
+    </header>
+    
+    <main>
+        <h1>Create Post</h1>
+        <form action="/posts/create" method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="4" required></textarea>
+            <label for="tags">Tags:</label>
+            <div id="tags">
+                <label><input type="checkbox" name="tag" value="Action">Action</label>
+                <label><input type="checkbox" name="tag" value="Fantasy">Fantasy</label>
+                <label><input type="checkbox" name="tag" value="Adventure">Adventure</label>
+                <label><input type="checkbox" name="tag" value="Horror">Horror</label>
+                <label><input type="checkbox" name="tag" value="Thriller">Thriller</label>
+            </div>
+            <div class="buttons">
+                <button type="reset">Reset</button>
+                <button type="submit">Create Post</button>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

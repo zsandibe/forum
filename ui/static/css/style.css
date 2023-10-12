@@ -1,0 +1,467 @@
+/* Update the dropdown button and its hover styles */
+
+
+/* Add these styles to your existing CSS file */
+
+
+.test2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-container {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.error-container p {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.error-container a {
+    display: inline-block;
+    background-color: #444;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.error-container a:hover {
+    background-color: #555;
+}
+
+
+
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    gap: 10px; /* Add space between buttons */
+    margin-top: 10px; /* Adjust the top margin to position them below the close button */
+}
+
+.button-container .dropdown-btn {
+    background-color: #444; /* Background color */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px 0; /* Add margin between buttons */
+    transition: background-color 0.3s;
+}
+
+.button-container .dropdown-btn:hover {
+    background-color: #555; /* Hover background color */
+}
+
+.button-container button:hover {
+    background-color: #555; /* Hover background color */
+}
+
+
+
+.button-container button {
+    background-color: #444; /* Background color */
+    color: #fff; /* Text color */
+    border: none;
+    padding: 10px 5px;
+    width: 100px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px 0; /* Add margin between buttons */
+    transition: background-color 0.3s;
+}
+#dropdown-btn1 {
+    margin-top: 100px;
+} 
+ .dropdown-btn {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+
+
+/* Update the dropdown container styles */
+.dropdown-container {
+    display: none;
+    padding-left: 8px;
+}
+
+/* Update the dropdown content styles */
+.dropdown-content {
+    /* Add the same background color and text color as the "Create Post" button */
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.dropdown-content:hover {
+    /* Apply the same hover background color as the "Create Post" button */
+    background-color: #555;
+}
+
+
+
+.menu-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    width: 50%;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+.menu-button a {
+    width: 50%; /* Дополнительный стиль для ссылки внутри кнопки */
+}
+
+.menu-button:hover {
+    background-color: #555;
+}
+
+.menu-content button,
+.menu-content a {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+.open-menu-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.open-menu-button:hover {
+    background-color: #555;
+}
+
+.user-menu {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #555;
+}
+
+
+.username {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.logout-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    background-color: #555;
+}
+.my-likes-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.my-likes-button:hover {
+    background-color: #555;
+}
+
+
+.main-menu {
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .user-menu {
+        border-bottom: none;
+    }
+}
+
+.tag-label {
+    background-color: #444;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tag-label:hover {
+    background-color: #555;
+}
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.post-container {
+    flex-basis: calc(33.33% - 20px);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.post-title:hover {
+    color: #555;
+}
+
+.post-author {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #777;
+}
+
+.dropdown {
+    margin: 10px 0;
+}
+
+.post-content {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #444;
+}
+
+.post-reactions {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Адаптивные стили для постов */
+@media screen and (max-width: 768px) {
+    .post-container {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .post-container {
+        flex-basis: 100%;
+    }
+}
+
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Изначально скрываем sidebar за левой границей экрана */
+    width: 250px; /* Ширина sidebar в закрытом состоянии */
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    transition: left 0.3s; /* Анимация для открытия и закрытия sidebar */
+    z-index: 1; /* Позволяет sidebar находиться над остальным контентом */
+}
+
+.open-sidebar-button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute; /* Позиционирование кнопки абсолютно */
+    top: 20px; /* Положение сверху */
+    left: 20px; /* Положение слева */
+}
+
+.open-sidebar-button:hover {
+    background-color: #444;
+}
+
+.close-sidebar-button {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute; /* Позиционирование кнопки абсолютно */
+    top: 20px; /* Положение сверху */
+    right: 20px; /* Положение справа */
+}
+
+.close-sidebar-button:hover {
+    background-color: #444;
+}
+
+.sidebar-menu {
+    margin-top: 10px; /* Смещение меню ниже открытия */
+    /* padding: 10px; */
+}
+
+.create-post-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.create-post-button:hover {
+    background-color: #555;
+}
+
+.my-posts-button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.my-posts-button:hover {
+    background-color: #555;
+}
+
+
+
+header {
+    background-color: #333; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 20px 0; /* Отступы сверху и снизу */
+    text-align: center; /* Центрирование текста внутри header */
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение элементов */
+    align-items: center; /* Выравнивание элементов по вертикали */
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.auth-buttons {
+    display: flex; /* Размещаем кнопки в одной строке */
+    gap: 20px; /* Расстояние между кнопками */
+}
+
+.auth-buttons a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-buttons a:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+
+
+
+/* Адаптивные стили */
+@media screen and (max-width: 768px) {
+    .logo {
+        margin: 0 auto; /* Центрирование лого на мобильных устройствах */
+    }
+
+    .auth-buttons {
+        flex-direction: column; /* Размещаем кнопки вертикально на мобильных устройствах */
+        text-align: center; /* Центрирование текста кнопок на мобильных устройствах */
+    }
+}

@@ -1,0 +1,104 @@
+/* Общие стили для страницы create_post */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 235px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+main {
+    max-width: 600px;
+    margin: 70px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#content {
+    resize: none;
+    height: 200px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    display: flex;
+    /* Добавляем этот стиль для лейблов и чекбоксов */
+    align-items: center;
+    /* Выравниваем элементы по вертикали */
+}
+
+input[type="text"],
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="text"],
+textarea {
+    outline: none;
+    border-color: #333;
+}
+
+#tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    outline: none;
+    border-color: #333;
+
+}
+
+label input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    /* Добавляем верхний отступ между кнопками и чекбоксами */
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover,
+button[type="reset"]:hover {
+    background-color: #555;
+}
