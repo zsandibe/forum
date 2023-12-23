@@ -6,4 +6,7 @@ type User struct {
 	Email           string
 	Password        string
 	ConfirmPassword string
+	AuthMethod      string
+	Role            string
+	Requested       bool
 }

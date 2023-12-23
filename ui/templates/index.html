@@ -37,21 +37,48 @@
       </button>
       <div class="dropdown-container">
         <div class="test1">
-          <p class="username">{{.User.Username}}</p>
+          <p class="username">{{.User.Role}}</p>
         </div>
+        {{if eq .User.Role  "user"}}
         <div class="test2">
           <button class="menu-button" onclick="window.location='/myposts'" {{ if not .User.Username}} disabled {{ end
             }}>My posts</button>
           <button class="menu-button" onclick="window.location='/mylikes'" {{ if not .User.Username}} disabled {{ end
             }}>My likes</button>
+          <button class="menu-button" onclick="window.location='/my-request'" {{ if not .User.Username}} disabled {{ end
+            }}>My request</button>
           <form action="/auth/log-out" method="get">
             <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
           </form>
         </div>
+        {{else if eq .User.Role  "moderator"}}
+        <div class="test2">
+          <button class="menu-button" onclick="window.location='/my-reports'" {{ if not .User.Username}} disabled {{ end
+            }}>My reports</button>
+          <form action="/auth/log-out" method="get">
+            <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
+          </form>
+        </div>
+        {{else}}
+        <div class="test2">
+          <button class="menu-button" onclick="window.location='/admin/reports'" {{ if not .User.Username}} disabled {{ end
+            }}>Reports list</button>
+          <button class="menu-button" onclick="window.location='/admin/requests'" {{ if not .User.Username}} disabled {{ end
+            }}>Requests list</button>
+          <form action="/auth/log-out" method="get">
+            <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
+          </form>
+        </div>
+        {{end}}
       </div>
+      {{if eq .User.Role "user"}}
       <div class="sidebar-menu">
         <button class="create-post-button" onclick="window.location='/posts/create'" {{ if not .User.Username}} disabled
           {{ end }}>Create Post</button>
+      </div>
+      <div class="sidebar-menu">
+        <button class="create-post-button" onclick="window.location='/request/create'" {{ if not .User.Username}} disabled
+          {{ end }}>Create Request</button>
       </div>
       <div class="button-container">
         <button class="dropdown-btn">Tags
@@ -69,6 +96,43 @@
         </ul>
         </div>
       </div>
+      {{else if eq .User.Role "moderator"}}
+      <div class="button-container">
+        <button class="dropdown-btn">Tags
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <form action="/">
+            <li> <input type="checkbox" name="tag" value="Action"> Action</li>
+            <li> <input type="checkbox" name="tag" value="Fantasy"> Fantasy</li>
+            <li> <input type="checkbox" name="tag" value="Adventure"> Adventure</li>
+            <li> <input type="checkbox" name="tag" value="Horror"> Horror</li>
+            <li> <input type="checkbox" name="tag" value="Thriller"> Thriller</li>
+             <button type="sumbit" class="btn btn-primary">Search</button>
+          </form>
+        </ul>
+        </div>
+      </div>
+      {{else}}
+      <button class="menu-button" onclick="window.location='/users'" {{ if not .User.Username}} disabled {{ end
+      }}>All user list</button>
+      <div class="button-container">
+        <button class="dropdown-btn">Tags
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <form action="/">
+            <li> <input type="checkbox" name="tag" value="Action"> Action</li>
+            <li> <input type="checkbox" name="tag" value="Fantasy"> Fantasy</li>
+            <li> <input type="checkbox" name="tag" value="Adventure"> Adventure</li>
+            <li> <input type="checkbox" name="tag" value="Horror"> Horror</li>
+            <li> <input type="checkbox" name="tag" value="Thriller"> Thriller</li>
+             <button type="sumbit" class="btn btn-primary">Search</button>
+          </form>
+        </ul>
+        </div>
+      </div>
+      {{end}}
     </div>
   </div>
   <div class="container">

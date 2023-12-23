@@ -25,3 +25,5 @@ openSidebarButton.addEventListener('click', () => {
 closeSidebarButton.addEventListener('click', () => {
     sidebar.style.left = '-250px';
 });
+
+

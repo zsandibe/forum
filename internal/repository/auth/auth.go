@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"database/sql"
 	"fmt"
 
 	s "forum/internal/models/session"
@@ -14,10 +15,10 @@ import (
 
 func (r *AuthSql) CreateUser(user u.User) error {
 	query := `
-		INSERT INTO users (Username,Email,Password) VALUES ($1, $2, $3);
+		INSERT INTO users (Username,Email,Password,Method,User_type,Requested) VALUES ($1, $2, $3, $4, $5, $6);
 	`
 
-	if _, err := r.db.Exec(query, user.Username, user.Email, user.Password); err != nil {
+	if _, err := r.db.Exec(query, user.Username, user.Email, user.Password, user.AuthMethod, user.Role, false); err != nil {
 		return err
 	}
 
@@ -26,14 +27,17 @@ func (r *AuthSql) CreateUser(user u.User) error {
 
 func (r *AuthSql) GetUserByData(userData string) (u.User, error) {
 	var user u.User
+	var method sql.NullString
 	query := `
-		SELECT ID,Username,Email,Password FROM users WHERE  Email = ?;
+		SELECT ID,Username,Email,Password,Method,User_type FROM users WHERE  Email = ?;
 	`
 	row := r.db.QueryRow(query, userData)
-	if err := row.Scan(&user.ID, &user.Username, &user.Email, &user.Password); err != nil {
+	if err := row.Scan(&user.ID, &user.Username, &user.Email, &user.Password, &method, &user.Role); err != nil {
+		fmt.Println(err)
 		return u.User{}, err
 	}
-	// fmt.Println(user)
+	user.AuthMethod = method.String
+	fmt.Println(user, "user")
 	return user, nil
 }
 
@@ -88,14 +92,14 @@ func (r *AuthSql) DeleteSessionByUserID(userID int) error {
 
 func (r *AuthSql) UserByToken(token string) (u.User, error) {
 	query := `
-		SELECT users.ID, users.Username, users.Email, users.Password 
+		SELECT users.ID, users.Username, users.Email, users.Password ,users.User_type
 		FROM sessions INNER JOIN users
 		ON users.ID = sessions.UserID
 		WHERE sessions.Token = ?;
 	`
 	var user u.User
 
-	if err := r.db.QueryRow(query, token).Scan(&user.ID, &user.Username, &user.Email, &user.Password); err != nil {
+	if err := r.db.QueryRow(query, token).Scan(&user.ID, &user.Username, &user.Email, &user.Password, &user.Role); err != nil {
 		return user, err
 	}
 	return user, nil
@@ -111,4 +115,25 @@ func (r *AuthSql) GetUserByID(userID int) (u.User, error) {
 		return u.User{}, err
 	}
 	return user, nil
+}
+
+func (r *AuthSql) GetAllUsersList() ([]u.User, error) {
+	var users []u.User
+	query := `
+		SELECT users.ID,users.Username,users.Email,users.User_type,users.Requested FROM users
+	`
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return users, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var user u.User
+		if err := rows.Scan(&user.ID, &user.Username, &user.Email, &user.Role, &user.Requested); err != nil {
+			return nil, fmt.Errorf("can`t get users : %w", err)
+		}
+		users = append(users, user)
+	}
+	return users, nil
 }

@@ -19,6 +19,7 @@ type Authorization interface {
 	DeleteSession(token string) error
 	DeleteSessionByUserID(userID int) error
 	UserByToken(token string) (u.User, error)
+	GetAllUsersList() ([]u.User, error)
 }
 
 func NewAuthSql(db *sql.DB) *AuthSql {

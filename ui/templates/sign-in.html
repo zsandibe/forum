@@ -2,26 +2,41 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../ui/static/css/auth.css">
-    <title>Sign In</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../ui/static/css/auth.css">
+  <title>Sign In</title>
 </head>
 
 <body>
-    <header>
-        <a href="/">Forum</a>
-    </header>
+  <header>
+    <a href="/">Forum</a>
+  </header>
 
-    <main>
-        <h1>Sign In</h1>
-        <form action="sign-in" method="POST">
-            <label for="username">Email:</label>
-            <input type="text" id="email" name="email" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Sign In</button>
-        </form>
-    </main>
+  <main>
+    <h1>Sign In</h1>
+    <form action="sign-in" method="POST">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Sign In</button>
+    </form>
+    <p class="divider">OR</p>
+    <div class="auth-buttons">
+        <a href="/auth/sign-in/google">
+            <button class="google-button">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png" width="20" height="20" alt="Google"> Sign in with Google
+            </button>
+        </a>
+        <a href="/auth/sign-in/github">
+            <button class="github-button">
+                <img src="https://github.githubassets.com/favicon.ico" width="20" height="20" alt="GitHub"> Sign in with GitHub
+            </button>
+        </a>
+    </div>
+  </main>
 </body>
 </html>

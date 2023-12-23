@@ -9,6 +9,7 @@ type AuthProvider interface {
 	CreateUser(user u.User) error
 	SetSession(user *u.User) (s.Session, error)
 	DeleteSession(token string) error
+	GetAllUsersList() ([]u.User, error)
 }
 
 type AuthHandler struct {

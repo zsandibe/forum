@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+
 	"golang.org/x/crypto/bcrypt"
 
 	s "forum/internal/models/session"
@@ -19,19 +20,28 @@ func (a *AuthService) CreateUser(user u.User) error {
 	// proverka na unique login
 	if _, err := a.repo.GetUserByData(user.Username); err != sql.ErrNoRows {
 		if err == nil {
+			fmt.Println("ERROR username taken")
 			return ErrUsernameTaken
 		}
+		fmt.Println("ERROR get user by data")
 		return err
 	}
-	if err := p.CheckUserInfo(user); err != nil {
-		return err
-	}
+	if user.AuthMethod == "" {
+		if err := p.CheckUserInfo(user); err != nil {
+			return err
+		}
 
-	password, err := p.GeneratePasswordHash(user.Password)
-	if err != nil {
-		return err
+		password, err := p.GeneratePasswordHash(user.Password)
+		if err != nil {
+			return err
+		}
+		user.Password = password
+	} else {
+		if !p.CheckUsername(user.Username) {
+
+			return p.ErrInvalidUsername
+		}
 	}
-	user.Password = password
 
 	if err := a.repo.CreateUser(user); err != nil {
 		if strings.Contains(err.Error(), "UNIQUE") {
@@ -53,13 +63,24 @@ func (a *AuthService) UserByToken(token string) (u.User, error) {
 }
 
 func (a *AuthService) CheckUser(u *u.User) (u.User, error) {
+	if u.AuthMethod == "" {
+		fmt.Println(u.Email)
+		user, err := a.repo.GetUserByData(u.Email)
+		fmt.Println(user.Email)
+		if err != nil {
+			return user, ErrNoUser
+		}
+
+		if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(u.Password)); err != nil {
+			return user, ErrWrongPassword
+		}
+
+		return user, nil
+	}
 	user, err := a.repo.GetUserByData(u.Email)
+	fmt.Println(user, "user")
 	if err != nil {
 		return user, ErrNoUser
-	}
-
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(u.Password)); err != nil{
-		return user, ErrWrongPassword
 	}
 	return user, nil
 }
@@ -109,4 +130,8 @@ func (a *AuthService) DeleteSession(token string) error {
 
 func (a *AuthService) GetUserByID(userID int) (modelsUser.User, error) {
 	return a.repo.GetUserByID(userID)
+}
+
+func (a *AuthService) GetAllUsersList() ([]u.User, error) {
+	return a.repo.GetAllUsersList()
 }

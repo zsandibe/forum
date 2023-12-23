@@ -12,6 +12,8 @@ type Post interface {
 	PostsByTag(userID int, tags []string) ([]modelsPost.Post, error)
 	PostByID(postID, userID int) (modelsPost.Post, error)
 	MyLikedPosts(userID int) ([]modelsPost.Post, error)
+	DeletePostById(postId int) error
+	DeleteTagsToPost(postId int) error
 }
 
 type PostService struct {

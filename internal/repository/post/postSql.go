@@ -22,4 +22,6 @@ type Post interface {
 	GetMyPosts(userID int) ([]p.Post, error)
 	GetPostsByTag(userID int, tags []string) ([]p.Post, error)
 	GetLikedPosts(userID int) ([]p.Post, error)
+	DeletePostById(postId int) error
+	DeleteTagsToPost(postId int) error
 }

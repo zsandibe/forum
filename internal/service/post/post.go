@@ -26,6 +26,10 @@ func (s *PostService) PostByID(postID, userID int) (modelsPost.Post, error) {
 	} else if err != nil {
 		return post, err
 	}
+	// post.ImagePath = fmt.Sprintf("/images/%s/%s.%s",
+	// 	post.FileType, post.FileName, post.FileType)
+	// post.Image = fmt.Sprintf("images/%s/%s.%s", post.FileType, post.Image, post.FileType)
+	fmt.Println(post.Image)
 	return post, nil
 }
 
@@ -38,16 +42,22 @@ func (s *PostService) AllPostList(userID int) ([]modelsPost.Post, error) {
 }
 
 func (s *PostService) PostsByTag(userID int, tags []string) ([]modelsPost.Post, error) {
-	if err := tagCheck(tags); err!= nil {
-		return nil,err
+	if err := tagCheck(tags); err != nil {
+		return nil, err
 	}
 	return s.repo.GetPostsByTag(userID, tags)
+}
+
+func (s *PostService) DeletePostById(postId int) error {
+	if err := s.repo.DeleteTagsToPost(postId); err != nil {
+		return fmt.Errorf("can`t delete tags: %w", err)
+	}
+	return s.repo.DeletePostById(postId)
 }
 
 func (s *PostService) MyLikedPosts(userID int) ([]modelsPost.Post, error) {
 	return s.repo.GetLikedPosts(userID)
 }
-
 
 func tagCheck(tags []string) error {
 	if len(tags) == 0 {
@@ -63,4 +73,8 @@ func tagCheck(tags []string) error {
 		}
 	}
 	return fmt.Errorf("you cannot select another category")
+}
+
+func (s *PostService) DeleteTagsToPost(postId int) error {
+	return s.repo.DeleteTagsToPost(postId)
 }

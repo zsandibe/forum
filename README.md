@@ -1,4 +1,4 @@
-# Forum
+# Forum-moderation
 
 ## Description
 
@@ -27,6 +27,16 @@ This is a web forum project created to enable communication between users throug
 
 ## Usage
 
+0. Admin credentials
+
+``` email 
+admin@gmail.com
+```
+
+``` password
+admin
+```
+
 1. Run server
 
 ```
@@ -53,5 +63,4 @@ Server will start at **http://localhost:8081** address
 ## Authors
 
 @zsandibe
-@ykhamito
-@grazakbe
+@ymoldabe

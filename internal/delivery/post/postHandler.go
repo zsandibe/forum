@@ -1,9 +1,9 @@
 package post
 
 import (
+	modelsComment "forum/internal/models/comment"
 	modelsPost "forum/internal/models/post"
 	modelsUser "forum/internal/models/user"
-	modelsComment "forum/internal/models/comment"
 )
 
 type postProvider interface {
@@ -13,15 +13,16 @@ type postProvider interface {
 	PostsByTag(userID int, tags []string) ([]modelsPost.Post, error)
 	PostByID(postID, userID int) (modelsPost.Post, error)
 	MyLikedPosts(userID int) ([]modelsPost.Post, error)
+	DeletePostById(postId int) error
 }
 
 type userProvider interface {
 	GetUserByID(userID int) (modelsUser.User, error)
 }
 
-type commentProvider interface{
+type commentProvider interface {
 	CreateComment(comment modelsComment.Comment) error
-	GetCommentsByPostID(postID,userID int)	([]modelsComment.Comment, error)
+	GetCommentsByPostID(postID, userID int) ([]modelsComment.Comment, error)
 }
 
 type PostHandler struct {

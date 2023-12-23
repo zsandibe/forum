@@ -68,7 +68,30 @@
         <div class="divider"></div>
         <h2 class="text-center text-break">{{.Post.Title}}</h2>
         <p class="text-break">{{.Post.Body}}</p>
-        <form action="/posts/react/{{.Post.ID}}" method="Post">
+        {{if eq .Post.Image ""}}
+        {{else}}
+        <div class="img-fluid">
+            <img src="{{ .Post.Image }}">
+        </div>
+        {{end}}
+        {{if eq .User.Role  "moderator"}}
+        <form id="deletePost" action="/posts/delete" method="POST">
+            <input type="hidden" name="id"  value="{{.Post.ID}}" />
+            <button class="btn btn-primary btn-block mb-4" style="background-color:red">Delete Post</button>
+        </form>
+        <form id="CreateReport" action="moderator/report/create" method="POST">
+            <input type="hidden" name="id"  value="{{.Post.ID}}" />
+            <label for="report-text" style="display: block; font-size: 16px; font-weight: bold;">Report text:</label>
+            <textarea id="report-text" name="report-text" required style="padding: 5px; font-size: 14px; border: 1px solid #ccc; border-radius: 15px;"></textarea>
+            <button class="btn btn-primary btn-block mb-4">Send Report</button>
+        </form>
+        {{else if eq .User.Role  "admin"}}
+        <form id="deletePost" action="/posts/delete" method="POST">
+            <input type="hidden" name="id"  value="{{.Post.ID}}" />
+            <button class="btn btn-primary btn-block mb-4" style="background-color:red">Delete Post</button>
+        </form>
+        {{end}}
+        <form action="/posts/react/{{.Post.ID}}" method="POST">
             <div class="reactions">
                 {{if eq .Post.Vote 1}}
                 <div class="react">
@@ -104,6 +127,7 @@
                 {{end}}
             </div>
         </form>
+
         {{if or .User.Username .Comments}}
         <div class="divider"></div>
         {{end}}

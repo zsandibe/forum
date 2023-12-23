@@ -2,83 +2,133 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../ui/static/css/style.css">
-    <title>Forum</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../ui/static/css/style.css">
+  <link rel="stylesheet" href="../../ui/static/css/postPage.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <title>Forum</title>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="/">Forum</a>
-            </div>
-            <button class="open-sidebar-button">&#9776;</button>
-            {{if .User.Username}}
-            <p class="username">{{.User.Username}}</p>
-            {{else}}
-            <div class="auth-buttons">
-                <a href="/auth/sign-in">Sign In</a>
-                <a href="/auth/sign-up">Sign Up</a>
-            </div>
-            {{end}}
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="/">Forum</a>
+      </div>
+      <button class="open-sidebar-button">&#9776;</button>
+      
+      {{if .User.Username}}
+      <p class="username">{{.User.Username}}</p>
+      {{else}}
+      <div class="auth-buttons">
+        <a href="/auth/sign-in">Sign In</a>
+        <a href="/auth/sign-up">Sign Up</a>
+      </div>
+      {{end}}
+    </nav>
+  </header>
 
-    <div class="sidebar">
-        <button class="close-sidebar-button">&#10006;</button>
-        <div class="button-container">
-            <button class="dropdown-btn">Dropdown 
-                <i class="fa fa-caret-down"></i>
-              </button>
-              <div class="dropdown-container">
-                <p class="username">{{.User.Username}}</p>
-                <button class="menu-button" onclick="window.location='/myposts'">My posts</button>
-                <button class="menu-button" onclick="window.location='/mylikes'">My likes</button>
-                <form action="/auth/log-out" method="get">
-                    <button class="menu-button">Log Out</button>
-                </form>
-              </div>
-            <div class="sidebar-menu">
-                <button class="create-post-button" onclick="window.location='/posts/create'">Create Post</button>
-            </div>
-            <div class="button-container">
-              <button class="dropdown-btn">Tags 
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-container">
-                    <button class="menu-button" onclick="window.location='/?tag=Action'" >Action</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Fantasy'" >Fantasy</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Adventure'" >Adventure</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Horror'" >Horror</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Thriller'" >Thriller</button>
-                </div>
-            </div>
+  <div class="sidebar">
+    <button class="close-sidebar-button">&#10006;</button>
+    <div class="button-container">
+      <button class="dropdown-btn" id="dropdown-btn1">Dropdown
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+        <div class="test1">
+          <p class="username">{{.User.Role}}</p>
         </div>
+        {{if eq .User.Role  "user"}}
+        <div class="test2">
+          <button class="menu-button" onclick="window.location='/myposts'" {{ if not .User.Username}} disabled {{ end
+            }}>My posts</button>
+          <button class="menu-button" onclick="window.location='/mylikes'" {{ if not .User.Username}} disabled {{ end
+            }}>My likes</button>
+          <form action="/auth/log-out" method="get">
+            <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
+          </form>
+        </div>
+        {{else if eq .User.Role  "moderator"}}
+        <div class="test2">
+          <button class="menu-button" onclick="window.location='/my-request'" {{ if not .User.Username}} disabled {{ end
+            }}>My request</button>
+          <button class="menu-button" onclick="window.location='/myreports'" {{ if not .User.Username}} disabled {{ end
+            }}>My reports</button>
+          <form action="/auth/log-out" method="get">
+            <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
+          </form>
+        </div>
+        {{else}}
+        <div class="test2">
+          <button class="menu-button" onclick="window.location='/mylikes'" {{ if not .User.Username}} disabled {{ end
+            }}>Reports list</button>
+          <button class="menu-button" onclick="window.location='/mylikes'" {{ if not .User.Username}} disabled {{ end
+            }}>Requests list</button>
+          <form action="/auth/log-out" method="get">
+            <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
+          </form>
+        </div>
+        {{end}}
+      </div>
+      {{if eq .User.Role "user"}}
+      <div class="sidebar-menu">
+        <button class="create-post-button" onclick="window.location='/posts/create'" {{ if not .User.Username}} disabled
+          {{ end }}>Create Post</button>
+      </div>
+      <div class="sidebar-menu">
+        <button class="create-post-button" onclick="window.location='/request/create'" {{ if not .User.Username}} disabled
+          {{ end }}>Create Request</button>
+      </div>
+      <div class="button-container">
+        <button class="dropdown-btn">Tags
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <form action="/">
+            <li> <input type="checkbox" name="tag" value="Action"> Action</li>
+            <li> <input type="checkbox" name="tag" value="Fantasy"> Fantasy</li>
+            <li> <input type="checkbox" name="tag" value="Adventure"> Adventure</li>
+            <li> <input type="checkbox" name="tag" value="Horror"> Horror</li>
+            <li> <input type="checkbox" name="tag" value="Thriller"> Thriller</li>
+             <button type="sumbit" class="btn btn-primary">Search</button>
+          </form>
+        </ul>
+        </div>
+      </div>
+      {{else if eq .User.Role "moderator"}}
+      <div class="sidebar-menu">
+        <button class="create-post-button" onclick="window.location='/report/create'" {{ if not .User.Username}} disabled
+          {{ end }}>Create Report</button>
+      </div>
+      {{else}}
+      <button class="menu-button" onclick="window.location='/users'" {{ if not .User.Username}} disabled {{ end
+      }}>All user list</button>
+      {{end}}
     </div>
-    <div class="container">
-        <div class="posts">
-            {{range .Posts}}
-            <div class="post-container">
-              <div class="post-title" onclick="window.location='/posts?id={{.ID}}'">{{.Title}}</div>
-              <div class="post-author">Author: {{.Author}}</div>
-              <div class="dropdown">
-                <div class="dropdown-content">
-                  {{ range .Tags}}
-                    <label class="tag-label">{{.}}</label>
-                  {{end}}
-                </div>  
-              </div>
-              <div class="post-content">
-                {{.Body}}
-              </div>
-              <div class="post-reactions">Like {{.Likecount}} Dislike {{.Dislikecount}}</div>
-            </div>
+  </div>
+  <div class="container">
+    <div class="posts">
+      {{range .Posts}}
+      <div class="post-container">
+        <div class="post-title" onclick="window.location='/posts?id={{.ID}}'">{{.Title}}</div>
+        <div class="post-author">Author: {{.Author}}</div>
+        <div class="dropdown">
+          <div class="dropdown-content">
+            {{ range .Tags}}
+            <label class="tag-label">{{.}}</label>
             {{end}}
+          </div>
         </div>
+        <div class="post-content">
+          {{.Body}}
+        </div>
+        <div class="post-reactions">Like {{.Likecount}} Dislike {{.Dislikecount}}</div>
+      </div>
+      {{end}}
     </div>
-    <script src="../../ui/static/js/script.js"></script>
+  </div>
+  <script src="../../ui/static/js/script.js"></script>
 </body>
 
 </html>

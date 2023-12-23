@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../ui/static/css/style.css">
+    <title>Forum</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Forum</a>
+            </div>
+            <button class="open-sidebar-button">&#9776;</button>
+            {{if .User.Username}}
+            <p class="username">{{.User.Username}}</p>
+            {{else}}
+            <div class="auth-buttons">
+                <a href="/auth/sign-in">Sign In</a>
+                <a href="/auth/sign-up">Sign Up</a>
+            </div>
+            {{end}}
+        </nav>
+    </header>
+
+    <div class="sidebar">
+        <button class="close-sidebar-button">&#10006;</button>
+        <div class="button-container">
+            <button class="dropdown-btn">Dropdown 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <p class="username">{{.User.Role}}</p>
+                <button class="menu-button" onclick="window.location='/admin/requests'">All requests</button>
+                <button class="menu-button" onclick="window.location='/admin/reports'">All reports</button>
+                <form action="/auth/log-out" method="get">
+                    <button class="menu-button">Log Out</button>
+                </form>
+              </div>
+              <button class="menu-button" onclick="window.location='/users'" {{ if not .User.Username}} disabled {{ end }}>All user list
+              </button>
+        </div>
+    </div>
+    <div class="container">
+      <table class="user-table">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Requested</th>
+                  <th>Role</th>
+                  <th>Make user</th>
+                  <th>Make moderator</th>
+              </tr>
+          </thead>
+          <tbody id="user-list">
+            {{range .Users}}
+            <tr>
+              <td>{{.ID}}</td>
+              <td>{{.Username}}</td>
+              <td>{{.Email}}</td>
+              <td>{{.Requested}}</td>
+              <td>{{.Role}}</td>
+              {{if eq .Role "moderator"}}
+              <td>
+                <form class="userTypeChange" action="/users/type/change" method="POST">
+                  <input type="hidden" name="user-id" value="{{.ID}}" />
+                  <input type="hidden" name="type" value="user" />
+                  <button class="btn btn-primary btn-block">Make User</button>
+                </form>
+              </td>
+              {{else if eq .Role "user"}}
+              <td>  
+                <form class="userTypeChange" action="users/type/change" method="POST">
+                  <input type="hidden" name="user-id" value="{{.ID}}" />
+                  <input type="hidden" name="type" value="moderator" />
+                  <button class="btn btn-primary btn-block">Make Moderator</button>
+                </form>
+              </td>
+              {{end}}
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+    </div>
+    <script src="../../ui/static/js/script.js"></script>
+</body>
+
+</html>

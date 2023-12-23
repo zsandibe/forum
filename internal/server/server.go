@@ -1,7 +1,9 @@
 package server
 
 import (
+	"crypto/tls"
 	"forum/pkg"
+	"log"
 	"net/http"
 	"time"
 )
@@ -10,18 +12,25 @@ type Server struct {
 	httpServer *http.Server
 }
 
-// Run запускает HTTP-сервер на указанном порту с заданным обработчиком.
 func (s *Server) Run(port string, handler http.Handler) error {
-	// Создаем экземпляр HTTP-сервера с заданными параметрами.
+	cer, err := tls.LoadX509KeyPair("cert/forum.pem", "cert/forum_key.pem")
+	if err != nil {
+		log.Fatal("SSL error: ", err)
+		return err
+	}
+
 	s.httpServer = &http.Server{
 		Addr:           port,
 		Handler:        handler,
-		MaxHeaderBytes: 1 << 20,          // Максимальный размер заголовков в байтах.
-		ReadTimeout:    10 * time.Second, // Тайм-аут чтения запроса.
-		WriteTimeout:   10 * time.Second, // Тайм-аут записи ответа.
+		MaxHeaderBytes: 1 << 20,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		TLSConfig: &tls.Config{
+			Certificates:       []tls.Certificate{cer},
+			InsecureSkipVerify: true,
+		},
 	}
-	// Выводим информацию о запуске сервера в лог.
-	pkg.InfoLog.Printf("Server run on http://localhost%s", port)
-	// Запускаем сервер и возвращаем ошибку (если есть).
-	return s.httpServer.ListenAndServe()
+
+	pkg.InfoLog.Printf("Server run on https://localhost%s", port)
+	return s.httpServer.ListenAndServeTLS("", "")
 }

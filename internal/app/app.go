@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"forum/internal/config"
 	"forum/internal/delivery"
 	"forum/internal/repository"
@@ -20,6 +21,7 @@ func Start() {
 
 	db, err := storage.NewSqlite3(config)
 	if err != nil {
+		fmt.Println(err)
 		log.Fatal(err)
 	}
 	defer db.Close()

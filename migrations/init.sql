@@ -2,8 +2,39 @@ CREATE TABLE IF NOT EXISTS users(
 			ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 			Username TEXT NOT NULL UNIQUE,
 			Email TEXT NOT NULL,
-			Password TEXT
+			Password TEXT,
+			Method TEXT,
+			User_type VARCHAR(50) NOT NULL,
+			Requested BOOLEAN
 			-- UNIQUE(Email)
+);
+
+INSERT OR IGNORE INTO users (Username, Email, Password, User_type,Requested) VALUES("admin", "admin@gmail.com", "$2a$04$tI2I9/frmSWkMoGt1Dm9D.cb.b3eWVUrfTjXd1j4zeyie7Monnz5m", "admin",false);
+
+UPDATE `sqlite_sequence`
+    SET `seq` = (SELECT MAX(`ID`) FROM 'users')
+    WHERE `name` = 'users';
+
+CREATE TABLE IF NOT EXISTS requests(
+			ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+			UserID INTEGER NOT NULL,
+			Created_at DATE,
+			Updated_at DATE,
+			Status VARCHAR(255) NOT NULL,
+			FOREIGN KEY (UserID) REFERENCES users(ID)
+				ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS reports(
+			ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+			UserID INTEGER NOT NULL,
+			PostID INTEGER NOT NULL,
+			Created_at DATE,
+			Updated_at DATE,
+			Moderator_msg VARCHAR(255),
+			Admin_msg VARCHAR(255),
+			Status VARCHAR(255) NOT NULL,
+			FOREIGN KEY (UserID) REFERENCES users(ID),
+			FOREIGN KEY (PostID) REFERENCES posts(ID)
 );
 CREATE TABLE IF NOT EXISTS sessions(
 			ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -20,6 +51,7 @@ CREATE TABLE IF NOT EXISTS posts(
 			Tag TEXT,
 			Body TEXT NOT NULL,
 			Author TEXT,
+			Image_hash INTEGER,
 			FOREIGN KEY(AuthorID) REFERENCES USERS(ID)
 				ON DELETE CASCADE
 );
@@ -50,3 +82,12 @@ CREATE TABLE IF NOT EXISTS tags(
 			FOREIGN KEY(PostID) REFERENCES POSTS(ID)
 				ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS images(
+			ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+			PostID INTEGER NOT NULL,
+			Image_hash TEXT NOT NULL,
+			File_type TEXT NOT NULL,	
+			FOREIGN KEY(PostID) REFERENCES POSTS(ID)
+				ON DELETE CASCADE
+);
+

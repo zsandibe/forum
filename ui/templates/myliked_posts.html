@@ -27,36 +27,53 @@
     </header>
 
     <div class="sidebar">
-        <button class="close-sidebar-button">&#10006;</button>
-        <div class="button-container">
-            <button class="dropdown-btn">Dropdown 
+      <button class="close-sidebar-button">&#10006;</button>
+      <div class="button-container">
+          <button class="dropdown-btn">Dropdown 
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container">
+              <div class="test1">
+                <p class="username">{{.User.Role}}</p>
+              </div>
+              <div class="test2">
+                <button class="menu-button" onclick="window.location='/myposts'" {{ if not .User.Username}} disabled {{ end
+                }}>My posts</button>
+                <button class="menu-button" onclick="window.location='/mylikes'" {{ if not .User.Username}} disabled {{ end
+                }}>My likes</button>
+                <button class="menu-button" onclick="window.location='/my-request'" {{ if not .User.Username}} disabled {{ end
+                }}>My request</button>
+                <form action="/auth/log-out" method="get">
+                  <button class="menu-button" {{ if not .User.Username}} disabled {{ end }}>Log Out</button>
+                </form>
+              </div>
+            </div>
+            <div class="sidebar-menu">
+              <button class="create-post-button" onclick="window.location='/posts/create'" {{ if not .User.Username}} disabled
+                {{ end }}>Create Post</button>
+            </div>
+            <div class="sidebar-menu">
+              <button class="create-post-button" onclick="window.location='/request/create'" {{ if not .User.Username}} disabled
+                {{ end }}>Create Request</button>
+            </div>
+            <div class="button-container">
+              <button class="dropdown-btn">Tags
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-container">
-                <p class="username">{{.User.Username}}</p>
-                <button class="menu-button" onclick="window.location='/myposts'">My posts</button>
-                <button class="menu-button" onclick="window.location='/mylikes'">My likes</button>
-                <form action="/auth/log-out" method="get">
-                    <button class="menu-button">Log Out</button>
+                <form action="/">
+                  <li> <input type="checkbox" name="tag" value="Action"> Action</li>
+                  <li> <input type="checkbox" name="tag" value="Fantasy"> Fantasy</li>
+                  <li> <input type="checkbox" name="tag" value="Adventure"> Adventure</li>
+                  <li> <input type="checkbox" name="tag" value="Horror"> Horror</li>
+                  <li> <input type="checkbox" name="tag" value="Thriller"> Thriller</li>
+                   <button type="sumbit" class="btn btn-primary">Search</button>
                 </form>
               </div>
-            <div class="sidebar-menu">
-                <button class="create-post-button" onclick="window.location='/posts/create'">Create Post</button>
             </div>
-            <div class="button-container">
-              <button class="dropdown-btn">Tags 
-                  <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-container">
-                    <button class="menu-button" onclick="window.location='/?tag=Action'" >Action</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Fantasy'" >Fantasy</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Adventure'" >Adventure</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Horror'" >Horror</button>
-                    <button class="menu-button" onclick="window.location='/?tag=Thriller'" >Thriller</button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
     <div class="container">
         <div class="posts">
             {{range .Posts}}
